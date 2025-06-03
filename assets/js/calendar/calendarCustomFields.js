@@ -51,7 +51,7 @@ export class CalendarCustomFields {
                 case 'checkbox':
                     fieldHtml = `
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="${fieldId}">
+                            <input class="form-check-input" name="${fieldId}" type="checkbox" id="${fieldId}">
                             <label class="form-check-label" for="${fieldId}">${field.label}</label>
                         </div>
                     `;
@@ -63,7 +63,7 @@ export class CalendarCustomFields {
                     fieldHtml = `
                         <div class="mb-3">
                             <label for="${fieldId}" class="form-label">${field.label}</label>
-                            <select class="form-select" id="${fieldId}">
+                            <select class="form-select" name="${fieldId}" id="${fieldId}">
                                 ${options}
                             </select>
                         </div>
@@ -73,15 +73,20 @@ export class CalendarCustomFields {
                     fieldHtml = `
                         <div class="mb-3">
                             <label for="${fieldId}" class="form-label">${field.label}</label>
-                            <textarea class="form-control" id="${fieldId}" rows="3"></textarea>
+                            <textarea class="form-control" name="${fieldId}" id="${fieldId}" rows="3"></textarea>
                         </div>
+                    `;
+                    break;
+                case 'hidden':
+                    fieldHtml = `
+                        <input type="${field.type}" name="${fieldId}" class="form-control" id="${fieldId}">
                     `;
                     break;
                 default:
                     fieldHtml = `
                         <div class="mb-3">
                             <label for="${fieldId}" class="form-label">${field.label}</label>
-                            <input type="${field.type}" class="form-control" id="${fieldId}">
+                            <input type="${field.type}" name="${fieldId}" class="form-control" id="${fieldId}">
                         </div>
                     `;
             }
