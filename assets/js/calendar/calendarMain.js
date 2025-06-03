@@ -100,8 +100,7 @@ export class CalendarSchedule {
         const self = this;
         const currentYear = new Date().getFullYear();
         self.customFieldsClass.initialize(self.customFields);
-        // const alertHTML = '<div class="alert alert-success" id="success-alert" style="display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 9999;" role="alert" >Aggiornamento avvenuto con successo!</div>';
-        // document.body.insertAdjacentHTML('afterbegin', alertHTML);
+        self.toast = new bootstrap.Toast(this.modal.toastEl, { delay: 3000 });
 
         self.sources.fetchEvents(function (defaultEvents) {
             const festività = self.holiday.generaFestività(currentYear);
@@ -200,6 +199,7 @@ export class CalendarSchedule {
                         // setTimeout(() => {
                         // document.getElementById('success-alert').style.display = 'none';
                         // }, 1000);
+                        self.toast.show();
                     },self.options.url);
                 },
                 eventResize: function(info) {
@@ -215,6 +215,7 @@ export class CalendarSchedule {
                     
                     self.sources.updateEventOnServer(updatedEvent, () => {
                         info.event.setProp('className', updatedEvent.className);
+                        self.toast.show();
                     },self.options.url);
                 }
             });
@@ -279,7 +280,7 @@ export class CalendarSchedule {
                     
                     // 3. Aggiorna sul server
                     self.sources.updateEventOnServer(updatedEvent, () => {
-
+                        self.toast.show();
                     },self.options.url);
                 } else {
                     const eventData = {
@@ -293,6 +294,7 @@ export class CalendarSchedule {
         
                     self.sources.saveEventToServer(eventData, function (savedEvent) {
                         self.calendarObj.addEvent(savedEvent);
+                        self.toast.show();
                     },self.options.url);
                 }
                 self.modal.main.hide();
@@ -310,6 +312,7 @@ export class CalendarSchedule {
                         self.selectedEvent.remove();
                         self.selectedEvent = null;
                         self.modal.main.hide();
+                        self.toast.show();
                     },self.options.url);
                 }
             }
