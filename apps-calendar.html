@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <title>FullCalManager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .fc .festività {
+        pointer-events: none; /* Blocca interazioni */
+        }
+        .fc-event.festività.fc-bg-event {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: rgba(255, 0, 0, 1);
+            opacity: 1;
+        }
+        .fc-timegrid-event {
+            min-height: 30px; /* o più */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Begin page -->
+    <div class="wrapper">
+
+        <div class="page-container">
+
+            <div class="row">
+
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+            </div>
+            <!--end row-->
+
+        </div> <!-- container -->
+
+    </div>
+
+    <!-- Vendor js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+
+
+    <!-- Fullcalendar js -->
+    <script src="assets/js/fullcalendar/index.global.min.js"></script>
+
+    <!-- Calendar App Demo js -->
+    
+    <script type="module">
+        import { CRCalendar } from './assets/js/calendar/calendar.js';
+        new CRCalendar({
+            /*obbligatori*/
+            texts: {
+                today: 'Oggi',
+                month: 'Mese',
+                week: 'Settimana',
+                day: 'Giorno',
+                list: 'Elenco',
+                prev: 'Indietro',
+                next: 'Avanti',
+                add: 'Aggiungi',
+                edit: 'Modifica',
+                delete: 'Elimina'
+            },
+            slotDuration: '00:30:00',
+            height: window.innerHeight - 200,
+            url: {
+                get: '/calendar/calendar.php?action=list',
+                save: '/calendar/calendar.php?action=add',
+                update: '/calendar/calendar.php?action=update&id=$id',
+                delete: '/calendar/calendar.php?action=delete&id=$id'
+            },
+            initialView: 'timeGridWeek',//timeGridWeek,timeGridDay,listMonth,dayGridMonth,dayGridWeek,dayGridDay
+            /********/
+            /*facoltativi*/
+            fields: [
+                {
+                    key: 'description',
+                    type: 'textarea',
+                    label: 'Descrizione'
+                },
+                {
+                    key: 'priority',
+                    type: 'select',
+                    label: 'Priorità',
+                    options: [
+                        { value: 'low', label: 'Bassa', eventClass: 'bg-success' },
+                        { value: 'medium', label: 'Media', eventClass: 'bg-warning' },
+                        { value: 'high', label: 'Alta', eventClass: 'bg-danger' }
+                    ]
+                },
+                {
+                    key: 'reminder',
+                    type: 'checkbox',
+                    label: 'Invia promemoria'
+                }
+            ]
+            /********/
+        });
+    </script>
+</body>
+
+</html>
