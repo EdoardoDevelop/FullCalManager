@@ -10,6 +10,7 @@ export class CalendarCustomFields {
             this.customFieldsConfig = customFields;
             this._generateFieldsMarkup();
             this.initialized = true;
+            
         }
     }
 
@@ -26,6 +27,10 @@ export class CalendarCustomFields {
                     break;
                 case 'select':
                     element.value = data[field.key] || '';
+                    break;
+                case 'select2':
+                    element.value = data[field.key] || '';
+                    $('.select2').select2();
                     break;
                 case 'textarea':
                     element.value = data[field.key] || '';
@@ -46,6 +51,7 @@ export class CalendarCustomFields {
         this.customFieldsConfig.forEach(field => {
             const fieldId = `event-${field.key}`;
             let fieldHtml = '';
+            let options;
 
             switch (field.type) {
                 case 'checkbox':
@@ -57,13 +63,26 @@ export class CalendarCustomFields {
                     `;
                     break;
                 case 'select':
-                    const options = field.options.map(opt => 
+                    options = field.options.map(opt => 
                         `<option value="${opt.value}">${opt.label}</option>`
                     ).join('');
                     fieldHtml = `
                         <div class="mb-3">
                             <label for="${fieldId}" class="form-label">${field.label}</label>
                             <select class="form-select" name="${fieldId}" id="${fieldId}">
+                                ${options}
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'select2':
+                    options = field.options.map(opt => 
+                        `<option value="${opt.value}">${opt.label}</option>`
+                    ).join('');
+                    fieldHtml = `
+                        <div class="mb-3">
+                            <label for="${fieldId}" class="form-label">${field.label}</label>
+                            <select class="form-select select2" name="${fieldId}" id="${fieldId}">
                                 ${options}
                             </select>
                         </div>
