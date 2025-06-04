@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .fc .festività {
         pointer-events: none; /* Blocca interazioni */
@@ -48,8 +48,8 @@
 
     <!-- Vendor js -->
     <script src="assets/js/bootstrap.min.js"></script>
-
-
+     <!-- Select2 js -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Fullcalendar js -->
     <script src="assets/js/fullcalendar/index.global.min.js"></script>
 
@@ -95,7 +95,7 @@
                 },
                 {
                     key: 'priority',
-                    type: 'select',
+                    type: 'select2',
                     label: 'Priorità',
                     options: [
                         { value: 'low', label: 'Bassa', eventClass: 'bg-success' },
