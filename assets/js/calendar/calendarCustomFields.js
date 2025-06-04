@@ -30,7 +30,9 @@ export class CalendarCustomFields {
                     break;
                 case 'select2':
                     element.value = data[field.key] || '';
-                    $('.select2').select2();
+                    $('.select2').select2({
+                        dropdownParent: document.getElementById('custom-fields-container')
+                      });
                     break;
                 case 'textarea':
                     element.value = data[field.key] || '';
